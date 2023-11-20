@@ -108,9 +108,10 @@
     
 }
 
-#form_div{
+#comment_form{
     display: grid;
     grid-template-columns: 90% 10%;
+    
 }
 
 

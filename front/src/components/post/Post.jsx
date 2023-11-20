@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import User from '../../assets/pictures/user_pic_1.png' 
 import './Post.css'
 import { format, formatISO9075 } from 'date-fns'
+import { UserContext } from '../../context/userContext';
 
 function Post({title, summary, cover, content, createdAt}) {
 
@@ -48,8 +49,28 @@ function Post({title, summary, cover, content, createdAt}) {
   const removeParagraphTags = (input) => {
     return input.replace(/<\/?p>/gi, "");
   };
-  
+
   const processedData = content ? removeParagraphTags(content) : '';
+
+  //comment post function
+  const {setUserInfo, http} = useContext(UserContext);
+  const [commentText, setCommentText] = useState('')
+
+  async function makeComment(ev) {
+      ev.preventDefault();
+    try {
+
+      const fetchComment = await fetch(`${http}/comments`, {
+        method: 'POST',
+        body: JSON.stringify({commentText}),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
 
 
 
@@ -82,18 +103,30 @@ function Post({title, summary, cover, content, createdAt}) {
           <div id='' className='' >#saveus</div>
         </div>
 
-        <div id='comments_div'>
-          <div id='form_div' className=' mt-[10px] mb-[40px] pr-[130px] gap-6 '>
+        <div id='comments_div' className=''>
+          
 
-            <form id='' className='' >
-              <input id='comment_input' className='' ></input>
+            <form id='comment_form' className='mt-[10px] mb-[40px] pr-[130px] gap-6' >
+
+              <input 
+              id='comment_input' 
+              className='' 
+              type='text'
+              value={commentText}
+              onChange={ev => setCommentText(ev.target.value) }
+              ></input>
+
+              <button id='post_button' className='' onClick={makeComment} >
+                Send
+              </button>
+
             </form>
 
-            <button id='post_button' className='' >
-              Send
-            </button>
 
-          </div>
+
+
+
+         
         </div>
 
       </div>
