@@ -45,15 +45,11 @@ function Post({title, summary, cover, content, createdAt}) {
     // {formatISO9075(new Date(createdAt))}
    var newCreatedAt = parseInt(createdAt)
 
-
-
-  //  const removeTags = (input) => {
-  //   return input.replace(/<\/?[^>]+(>|$)/g, "");
-  // };
-
-  // const postData = content;
-
-  // const processedData = removeTags(postData);
+  const removeParagraphTags = (input) => {
+    return input.replace(/<\/?p>/gi, "");
+  };
+  
+  const processedData = content ? removeParagraphTags(content) : '';
 
 
 
@@ -77,7 +73,7 @@ function Post({title, summary, cover, content, createdAt}) {
         <h1 id='post_heading' className='' >{title}</h1>
         <div id='post_text_div'>
         <p id='post_text' className='' >
-           {content}
+           {processedData}
         </p>
         </div>
 
