@@ -4,7 +4,7 @@ import './Post.css'
 import { format, formatISO9075 } from 'date-fns'
 import { UserContext } from '../../context/userContext';
 
-function Post({title, summary, cover, content, createdAt}) {
+function Post({post}) {
 
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
@@ -44,25 +44,29 @@ function Post({title, summary, cover, content, createdAt}) {
 
 
     // {formatISO9075(new Date(createdAt))}
-   var newCreatedAt = parseInt(createdAt)
+   var newCreatedAt = parseInt(post.createdAt)
 
   const removeParagraphTags = (input) => {
     return input.replace(/<\/?p>/gi, "");
   };
 
-  const processedData = content ? removeParagraphTags(content) : '';
+  const processedData = post.content ? removeParagraphTags(post.content) : '';
 
   //comment post function
   const {setUserInfo, http} = useContext(UserContext);
   const [commentText, setCommentText] = useState('')
-
+  const commentJson = {
+    postId: post._id,
+    comentText: commentText
+  }
+  console.log(commentJson);
   async function makeComment(ev) {
       ev.preventDefault();
     try {
 
       const fetchComment = await fetch(`${http}/comments`, {
         method: 'POST',
-        body: JSON.stringify({commentText}),
+        body: JSON.stringify(commentJson),
         headers: { 'Content-Type': 'application/json' },
       })
       
@@ -91,7 +95,7 @@ function Post({title, summary, cover, content, createdAt}) {
         <div id='post_type' className='flex justify-center items-center' ><h5>Safety</h5></div>
         </div>
 
-        <h1 id='post_heading' className='' >{title}</h1>
+        <h1 id='post_heading' className='' >{post.title}</h1>
         <div id='post_text_div'>
         <p id='post_text' className='' >
            {processedData}

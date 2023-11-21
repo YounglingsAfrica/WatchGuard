@@ -7,18 +7,29 @@ import { UserContext } from '../../context/userContext';
 
 function post_page( ) {
   const [posts, setPosts] = useState([]);
-  const {http} = useContext(UserContext);
+  const { http } = useContext(UserContext);
 
- useEffect(() => {
-  fetch(`${http}/postData`, {
-    method:'GET',
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${http}/postData`, {
+          method: 'GET',
+        });
 
-  }).then(response => {
-    response.json().then(post => {
-      setPosts(post);
-    })
-  })
- }, [])
+        if (response.ok) {
+          const postArray = await response.json();
+          setPosts(postArray);
+        } else {
+          
+          console.error('Error fetching data:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [http]);
 
  
 
@@ -32,9 +43,9 @@ function post_page( ) {
             </button>
           </Link>
 
-          {posts.length > 0 && posts.map(posts => (
-            <Post {...posts}/>
-          ))}
+          {posts.length > 0 && posts.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
           
         </div>
 
