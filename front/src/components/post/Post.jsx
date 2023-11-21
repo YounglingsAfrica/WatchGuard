@@ -59,7 +59,7 @@ function Post({post}) {
     postId: post._id,
     comentText: commentText
   }
-  console.log(commentJson);
+ 
   async function makeComment(ev) {
       ev.preventDefault();
     try {
