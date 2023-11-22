@@ -6,6 +6,9 @@ import { UserContext } from '../../context/userContext';
 
 function Post({post}) {
 
+
+  /// date and time for timestamp
+//**********************************************************************************************************************
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
     useEffect(() => {
@@ -20,6 +23,8 @@ function Post({post}) {
     const day = String(currentDateTime.getDate());
     const year = String(currentDateTime.getFullYear());
 
+
+//**********************************************************************************************************************
     const [postLayout, setPostLayout] = useState(true);
 
 
@@ -42,7 +47,7 @@ function Post({post}) {
       };
     }, []);
 
-
+  //**********************************************************************************************************************
     // {formatISO9075(new Date(createdAt))}
    var newCreatedAt = parseInt(post.createdAt)
 
@@ -51,7 +56,7 @@ function Post({post}) {
   };
 
   const processedData = post.content ? removeParagraphTags(post.content) : '';
-
+  //**********************************************************************************************************************
   //comment post function
   const {setUserInfo, http} = useContext(UserContext);
   const [commentText, setCommentText] = useState('')
@@ -75,7 +80,7 @@ function Post({post}) {
     }
     
   }
-
+  //**********************************************************************************************************************
 
 
   return (
