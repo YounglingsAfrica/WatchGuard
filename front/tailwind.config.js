@@ -17,7 +17,8 @@ export default {
         'post':'15% 85% ', 
         'comment':'90% 10%',
         'communities': '100%',
-        'insideCommunities' : '10% 50% 40%' 
+        'insideCommunities' : '10% 50% 40%',
+        'comment':'10% 90%'
       },
       gridTemplateRows: {
         'communities': 'repeat(auto-fill, 500px)',

@@ -3,6 +3,8 @@ import User from '../../assets/pictures/user_pic_1.png'
 import './Post.css'
 import { format, formatISO9075 } from 'date-fns'
 import { UserContext } from '../../context/userContext';
+import Comment_block from '../comments/comment_block'
+ 
 
 function Post({post}) {
 
@@ -86,7 +88,7 @@ function Post({post}) {
   return (
     <>
     <div id='post_block' className=' bg-[white] rounded-lg mt-[30px] mb-[30px]'>
-
+      
       <div id='profile_div1' className='w-full h-full'>
         <div id='profile_pic' className=' w-[80px] h-[80px] rounded-[100px] bg-center bg-cover' style={{backgroundImage: `url(${User})`}}></div>
       </div>
@@ -132,15 +134,17 @@ function Post({post}) {
             </form>
 
 
-
+            
 
 
          
         </div>
 
       </div>
-
+      
     </div>
+
+   
     </>
   )
 }
